@@ -1,10 +1,11 @@
 package de.htw.ws.kbe.EmailChecker;
 
 public class MyEmailSyntaxChecker {
-
+    
+	public String email;
 	
 	public boolean isValidEmailAddress(String emailAddress) {
-		
+		this.email = emailAddress;
 		if(emailAddress == null) {
 			return false;
 		}
