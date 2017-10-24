@@ -1,11 +1,9 @@
 package de.htw.ws.kbe.EmailChecker;
-import org.apache.commons.validator.routines.*;
+import org.apache.commons.validator.routines.EmailValidator;
 
 public class ExternalEmailSyntaxChecker {
-
-	EmailValidator ev = EmailValidator.getInstance();
 	
 	public boolean isValidEmailAddress(String emailAddress) {
-        return  ev.isValid(emailAddress);
+        return  EmailValidator.getInstance().isValid(emailAddress);
 	}
 }
