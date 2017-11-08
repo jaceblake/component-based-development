@@ -1,3 +1,4 @@
+
 package de.htw.ws.kbe.runMeRunner;
 
 import java.io.File;
@@ -8,20 +9,12 @@ public class MethodRunner {
 	public static void main(String[] args) {
 
 		// System.out.println(System.getProperty("user.dir"));
-
-		try {
-			String cl = Utility.getClass(new File(args[0]));
-
-
+            try {
+			String cl = new Utility().getClassName(new File(args[0]));
 			callMethods(cl);
-		} catch (IllegalArgumentException a) {
-			System.out.println("Config file name missing as parameter");
-
-		} catch(ArrayIndexOutOfBoundsException i) {
-			System.out.println("config file as Parameter missing");
-			
-		}
-
+            }catch(ArrayIndexOutOfBoundsException e) {
+            	System.out.println("Config file name missing as parameter");
+            }
 	}
 
 	private static void callMethods(String cl) {
@@ -31,12 +24,13 @@ public class MethodRunner {
 			for (Method m : x.getClass().getMethods()) {
 
 				if (m.isAnnotationPresent(RunMe.class)) {
-					m.invoke(x, m.getAnnotation(RunMe.class).input());
+					System.out.println(m.invoke(x, m.getAnnotation(RunMe.class).input())+"\n");
 				}
 
 			}
 
 		} catch (Exception e) {
+			
 		}
 	}
 

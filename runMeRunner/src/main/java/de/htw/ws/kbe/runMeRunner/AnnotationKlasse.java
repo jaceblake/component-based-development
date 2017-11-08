@@ -7,6 +7,7 @@ public class AnnotationKlasse {
 	@RunMe(input = "myName@domain.com")
 	public boolean method22(String input) {
 		System.out.println("In method22");
+		System.out.println(input);
 		return new MyEmailSyntaxChecker().isValidEmailAddress(input);
 	}
 	
@@ -21,6 +22,7 @@ public class AnnotationKlasse {
 	@RunMe(input = "33@test.com")
 	public boolean method33(String input) {
 		System.out.println("In method33");
+		System.out.println(input);
 		return new MyEmailSyntaxChecker().isValidEmailAddress(input);
 	}
 	
