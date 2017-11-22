@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.sun.xml.internal.ws.api.pipe.ThrowableContainerPropertySet;
+
 
 public class Utility {
 
@@ -28,6 +28,8 @@ public class Utility {
 		} else {
 			   System.out.println("File is empty");
 		}
+		
+
 		
 		} catch (FileNotFoundException e) {
             System.out.println("Config file not found");
