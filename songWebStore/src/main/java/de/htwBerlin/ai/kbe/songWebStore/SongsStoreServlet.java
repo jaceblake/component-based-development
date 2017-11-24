@@ -34,6 +34,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @WebServlet(name = "SongsServlet", urlPatterns = "/*", initParams = {
 		@WebInitParam(name = "songFile", value = "songs.json") })
@@ -58,6 +59,7 @@ public class SongsStoreServlet extends HttpServlet {
 		songFilename = servletConfig.getInitParameter("songFile");
 
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
+		
 
 		try {
 			List<Song> songList = new ObjectMapper().
@@ -83,7 +85,7 @@ public class SongsStoreServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		System.out.println("TEST");
+		
 		System.out.println("In init");
 	}
 
@@ -119,40 +121,61 @@ public class SongsStoreServlet extends HttpServlet {
 
 		}
 	}
-
-
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-//		Song s = new ObjectMapper().readValue(request.get, Song.class);
-//		
-//		response.setContentType(TEXT_PLAIN);
-//		
-//		try (PrintWriter out = response.getWriter()) {
-//			
-//		songStore.put(currentID.incrementAndGet(), s);
-//		
-//		out.println(currentID);
-//		
-//		System.out.println(songStore.size());
-//		
-//		}
+
+		response.setContentType(TEXT_PLAIN);
+
+		try (PrintWriter out = response.getWriter()) {
+
+			String body = request.getReader().lines().reduce("", (accumulator, actual) -> accumulator + actual);
+
+			Song song = new ObjectMapper().readValue(body, Song.class);
+			song.setId(currentID.incrementAndGet());
+
+			System.out.println(song.getId());
+
+			songStore.put(currentID.get(), song);
+
+			out.println(currentID);
+
+		}
 	}
 
-	@Override
-	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	}
+//	@Override
+//	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//	}
+//	
+//
+//	@Override
+//	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//	}
 	
-
-	@Override
-	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	}
-
+	
 	// save songStore to file
 	@Override
 	public void destroy() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			FileOutputStream fileout = new FileOutputStream("output.json",true);
+			mapper.writeValue(fileout, songStore.values());
+			fileout.flush();
+			
+		} catch (JsonGenerationException e) {
+			
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		System.out.println("In destroy");
-	}
+		
 	
+	}
+
 
 }
