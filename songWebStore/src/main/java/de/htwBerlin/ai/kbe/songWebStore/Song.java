@@ -1,5 +1,6 @@
 package de.htwBerlin.ai.kbe.songWebStore;
 
+
 public class Song {
 
 	private Integer id;
@@ -41,4 +42,6 @@ public class Song {
 	public Integer getReleased() {
 		return released;
 	}
+	
+
 }

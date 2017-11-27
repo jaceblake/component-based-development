@@ -17,6 +17,7 @@ import java.util.OptionalInt;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -130,18 +131,29 @@ public class SongsStoreServlet extends HttpServlet {
 
 			String body = request.getReader().lines().reduce("", (accumulator, actual) -> accumulator + actual);
 
+			if(body.equals("null")) {
+				out.println("please don't send any null value !!!");
+				
+			}else if(body.isEmpty()){
+				out.println("please don't send any Empty value !!!");
+			}else {
+				
+			try {
+			
 			Song song = new ObjectMapper().readValue(body, Song.class);
 			song.setId(currentID.incrementAndGet());
-
 			System.out.println(song.getId());
-
 			songStore.put(currentID.get(), song);
-
-			out.println(currentID);
-
+			out.println("Thanks, your new Song has ID  "+ currentID);
+			
+			}catch(JsonParseException e) {
+				out.println("Please send a valid song Object !!!");
+			}
+  
+			}
 		}
 	}
-
+	
 //	@Override
 //	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
 //	}
@@ -157,10 +169,10 @@ public class SongsStoreServlet extends HttpServlet {
 	public void destroy() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			FileOutputStream fileout = new FileOutputStream("output.json",true);
+			mapper.enable(SerializationFeature.INDENT_OUTPUT); 
+			FileOutputStream fileout = new FileOutputStream("C:\\Users\\jahid\\eclipse-workspace\\kbeUebung1\\kbeWS17MixMaster\\songWebStore\\output.json");
 			mapper.writeValue(fileout, songStore.values());
-			fileout.flush();
+			
 			
 		} catch (JsonGenerationException e) {
 			
@@ -168,14 +180,11 @@ public class SongsStoreServlet extends HttpServlet {
 		} catch (JsonMappingException e) {
 			
 			e.printStackTrace();
-		} catch (IOException e) {
-			
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}catch(IOException e) {
+			
 		}
-		System.out.println("In destroy");
-		
-	
-	}
-
-
+		System.out.println("In destroy");	
+	} 
 }
