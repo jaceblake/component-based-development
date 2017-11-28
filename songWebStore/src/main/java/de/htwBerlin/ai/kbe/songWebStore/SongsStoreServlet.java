@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletConfig;
@@ -53,75 +58,100 @@ public class SongsStoreServlet extends HttpServlet {
 	private Map<Integer, Song> songStore = null;
 
 	private AtomicInteger currentID = null;
+	
+	private Logger log ;
 
 	// load songStore from JSON file and set currentID
 	public void init(ServletConfig servletConfig) throws ServletException {
 
+		log = Logger.getLogger(SongsStoreServlet.class.getName());
+
+		try {
+			Handler handler = new FileHandler("log.xml",true);
+			handler.setLevel(Level.INFO);
+			log.addHandler(handler);
+		} catch (SecurityException e1) {
+			System.out.println("SecurityException by creating log File");
+		} catch (IOException e1) {
+			System.out.println("IOException by creating log File");
+		}
+
 		songFilename = servletConfig.getInitParameter("songFile");
 
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
-		
 
 		try {
 			List<Song> songList = new ObjectMapper().
-					readValue(input, new TypeReference<List<Song>>() {
-			});
+					readValue(input, new TypeReference<List<Song>>() {});
 
 			songStore = new ConcurrentHashMap<>();
 
 			songList.stream().forEach(e -> this.songStore.put(e.getId(), e));
-			
-			currentID =  new AtomicInteger(songStore.size());
-			
+
+			currentID = new AtomicInteger(songStore.size());
+
 			System.out.println(currentID);
 
-		} catch (JsonParseException e) {
-
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-
-			e.printStackTrace();
 		} catch (IOException e) {
-
-			e.printStackTrace();
+			log.info("Cann't read json object and convert to Song (In Init)" + e);
 		}
 
-		
 		System.out.println("In init");
 	}
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		response.setContentType(APPLICATION_JSON);
+		// all  Parameter (keys)
+		Enumeration<String> paramNames = request.getParameterNames();
+		
+		Map<String, String> allParams = new ConcurrentHashMap<>();
+		String param = "";
+		while (paramNames.hasMoreElements()) {
+			param = paramNames.nextElement();
+			allParams.put(param, request.getParameter(param));
+		}
 
 		try (PrintWriter out = response.getWriter()) {
 
-			if (request.getParameter("all") != null && request.getParameter("all").equals("")) {
-				out.println(new ObjectMapper().writeValueAsString(songStore));
-			}
+			if (allParams.size() == 1) {
+				response.setContentType(APPLICATION_JSON);
 
-			else if (request.getParameter("songId") != null) {
-
-				String value = request.getParameter("songId");
-
-				try {
-					int valueInt = Integer.parseInt(value);
-
-					if (songStore.get(valueInt) != null) {
-						out.println(new ObjectMapper().writeValueAsString(songStore.get(valueInt)));
-					} else {
-						response.setContentType(TEXT_PLAIN);
-						out.println("Object not Found");
-					}
-				} catch (NumberFormatException e) {
-					response.setContentType(TEXT_PLAIN);
-					out.println("Expected Value is Integer");
+				if (allParams.get("all") != null && allParams.get("all").equals("")) {
+					out.println(new ObjectMapper().writeValueAsString(songStore));
 				}
-			}
+                
+				else if (allParams.get("songId") != null) {
 
+					String value = allParams.get("songId");
+
+					try {
+						int valueInt = Integer.parseInt(value);
+
+						if (songStore.get(valueInt) != null) {
+							out.println(new ObjectMapper().writeValueAsString(songStore.get(valueInt)));
+						} else {
+							response.setContentType(TEXT_PLAIN);
+							out.println("Object not Found");
+						}
+					} catch (NumberFormatException e) {
+						response.setContentType(TEXT_PLAIN);
+						out.println("Expected Value is Integer");
+						log.info("User tried to give non integer SongId (In doGet)" + e);
+					}
+				}
+
+			} else if (allParams.size() > 1) {
+				response.setContentType(TEXT_PLAIN);
+				out.println("Expected only one Parameter !!!");
+			} else {
+				response.setContentType(TEXT_PLAIN);
+				out.println("Expected minimum one Parameter !!!");
+			}
 		}
+
 	}
+	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -129,7 +159,7 @@ public class SongsStoreServlet extends HttpServlet {
 
 		try (PrintWriter out = response.getWriter()) {
 
-			String body = request.getReader().lines().reduce("", (accumulator, actual) -> accumulator + actual);
+			String body = request.getReader().lines().reduce("", (key, value) -> key + value);
 
 			if(body.equals("null")) {
 				out.println("please don't send any null value !!!");
@@ -148,6 +178,7 @@ public class SongsStoreServlet extends HttpServlet {
 			
 			}catch(JsonParseException e) {
 				out.println("Please send a valid song Object !!!");
+				log.info("User tried to give invalid song Object (In doPsot)" + e);
 			}
   
 			}
@@ -165,25 +196,24 @@ public class SongsStoreServlet extends HttpServlet {
 	
 	
 	// save songStore to file
-	@Override
+	@Override  
 	public void destroy() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.enable(SerializationFeature.INDENT_OUTPUT); 
-			FileOutputStream fileout = new FileOutputStream("C:\\Users\\jahid\\eclipse-workspace\\kbeUebung1\\kbeWS17MixMaster\\songWebStore\\output.json");
+			String str = this.getClass().getClassLoader().getResource(songFilename).getPath();
+			System.out.println(str);
+			FileOutputStream fileout = new FileOutputStream(str);
 			mapper.writeValue(fileout, songStore.values());
-			
-			
+				
 		} catch (JsonGenerationException e) {
-			
-			e.printStackTrace();
+			log.info("Cann't write value in File (In destroy) " + e);
 		} catch (JsonMappingException e) {
-			
-			e.printStackTrace();
+			log.info("Cann't write value in File (In destroy) " + e);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			log.info("File Not Found (In destroy) " + e);
 		}catch(IOException e) {
-			
+			log.info("Cann't write value in File (In destroy) " + e);
 		}
 		System.out.println("In destroy");	
 	} 
