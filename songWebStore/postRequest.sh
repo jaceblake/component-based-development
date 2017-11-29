@@ -10,3 +10,5 @@ curl -X POST \
      -v "http://localhost:8080/songWebStore"
 
 echo "-------------------------------------"
+
+curl -X POST -H "Content-Type: application/json" -H "Accept: test/plain" -d "@test.json" -v "http://localhost:8080/songWebStore"

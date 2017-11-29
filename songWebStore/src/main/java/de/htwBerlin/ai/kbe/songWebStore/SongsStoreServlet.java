@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -58,8 +59,8 @@ public class SongsStoreServlet extends HttpServlet {
 	private Map<Integer, Song> songStore = null;
 
 	private AtomicInteger currentID = null;
-	
-	private Logger log ;
+
+	private Logger log;
 
 	// load songStore from JSON file and set currentID
 	public void init(ServletConfig servletConfig) throws ServletException {
@@ -67,7 +68,7 @@ public class SongsStoreServlet extends HttpServlet {
 		log = Logger.getLogger(SongsStoreServlet.class.getName());
 
 		try {
-			Handler handler = new FileHandler("log.xml",true);
+			Handler handler = new FileHandler("log.txt", true);
 			handler.setLevel(Level.INFO);
 			log.addHandler(handler);
 		} catch (SecurityException e1) {
@@ -78,33 +79,46 @@ public class SongsStoreServlet extends HttpServlet {
 
 		songFilename = servletConfig.getInitParameter("songFile");
 
-		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
-
 		try {
-			List<Song> songList = new ObjectMapper().
-					readValue(input, new TypeReference<List<Song>>() {});
-
-			songStore = new ConcurrentHashMap<>();
-
-			songList.stream().forEach(e -> this.songStore.put(e.getId(), e));
-
-			currentID = new AtomicInteger(songStore.size());
-
-			System.out.println(currentID);
-
+			initializeSongStore();
 		} catch (IOException e) {
 			log.info("Cann't read json object and convert to Song (In Init)" + e);
 		}
+		currentID = new AtomicInteger(songStore.size());
+
+		System.out.println(currentID);
 
 		System.out.println("In init");
+	}
+
+	public boolean isEmptySongStore() {
+		if (songStore == null)
+			return true;
+		return false;
+	}
+
+	public void initializeSongStore() throws IOException {
+
+		if (songFilename == null) {
+			songFilename = "songs.json";
+		}
+		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
+
+		List<Song> songList = new ObjectMapper().readValue(input, new TypeReference<List<Song>>() {
+		});
+
+		songStore = new ConcurrentHashMap<>();
+
+		songList.stream().forEach(e -> this.songStore.put(e.getId(), e));
+
 	}
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		// all  Parameter (keys)
+		// all Parameter (keys)
 		Enumeration<String> paramNames = request.getParameterNames();
-		
+
 		Map<String, String> allParams = new ConcurrentHashMap<>();
 		String param = "";
 		while (paramNames.hasMoreElements()) {
@@ -115,12 +129,12 @@ public class SongsStoreServlet extends HttpServlet {
 		try (PrintWriter out = response.getWriter()) {
 
 			if (allParams.size() == 1) {
-				response.setContentType(APPLICATION_JSON);
 
 				if (allParams.get("all") != null && allParams.get("all").equals("")) {
+					response.setContentType(APPLICATION_JSON);
 					out.println(new ObjectMapper().writeValueAsString(songStore));
 				}
-                
+
 				else if (allParams.get("songId") != null) {
 
 					String value = allParams.get("songId");
@@ -129,6 +143,7 @@ public class SongsStoreServlet extends HttpServlet {
 						int valueInt = Integer.parseInt(value);
 
 						if (songStore.get(valueInt) != null) {
+							response.setContentType(APPLICATION_JSON);
 							out.println(new ObjectMapper().writeValueAsString(songStore.get(valueInt)));
 						} else {
 							response.setContentType(TEXT_PLAIN);
@@ -139,6 +154,10 @@ public class SongsStoreServlet extends HttpServlet {
 						out.println("Expected Value is Integer");
 						log.info("User tried to give non integer SongId (In doGet)" + e);
 					}
+				} else {
+					response.setContentType(TEXT_PLAIN);
+					out.println("Wrong parameter Name !!!");
+
 				}
 
 			} else if (allParams.size() > 1) {
@@ -147,74 +166,75 @@ public class SongsStoreServlet extends HttpServlet {
 			} else {
 				response.setContentType(TEXT_PLAIN);
 				out.println("Expected minimum one Parameter !!!");
+
 			}
 		}
 
 	}
-	
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		response.setContentType(TEXT_PLAIN);
-
 		try (PrintWriter out = response.getWriter()) {
 
 			String body = request.getReader().lines().reduce("", (key, value) -> key + value);
 
-			if(body.equals("null")) {
+			if (body.equals("null")) {
 				out.println("please don't send any null value !!!");
-				
-			}else if(body.isEmpty()){
+
+			} else if (body.isEmpty()) {
 				out.println("please don't send any Empty value !!!");
-			}else {
-				
-			try {
-			
-			Song song = new ObjectMapper().readValue(body, Song.class);
-			song.setId(currentID.incrementAndGet());
-			System.out.println(song.getId());
-			songStore.put(currentID.get(), song);
-			out.println("Thanks, your new Song has ID  "+ currentID);
-			
-			}catch(JsonParseException e) {
-				out.println("Please send a valid song Object !!!");
-				log.info("User tried to give invalid song Object (In doPsot)" + e);
-			}
-  
+			} else {
+
+				try {
+
+					Song song = new ObjectMapper().readValue(body, Song.class);
+
+					song.setId(currentID.incrementAndGet());
+					System.out.println(song.getId());
+					songStore.put(currentID.get(), song);
+					out.println("Thanks, your new Song has ID  " + currentID);
+
+				} catch (JsonParseException e) {
+					out.println("Please send a valid song Object !!!");
+					log.info("User tried to give invalid song Object (In doPsot)" + e);
+				}
 			}
 		}
 	}
-	
-//	@Override
-//	public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//	}
-//	
-//
-//	@Override
-//	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//	}
-	
-	
+
+	// @Override
+	// public void doPut(HttpServletRequest request, HttpServletResponse response)
+	// throws IOException {
+	// }
+	//
+	//
+	// @Override
+	// public void doDelete(HttpServletRequest request, HttpServletResponse
+	// response) throws IOException {
+	// }
+
 	// save songStore to file
-	@Override  
+	@Override
 	public void destroy() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT); 
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			String str = this.getClass().getClassLoader().getResource(songFilename).getPath();
 			System.out.println(str);
 			FileOutputStream fileout = new FileOutputStream(str);
 			mapper.writeValue(fileout, songStore.values());
-				
+
 		} catch (JsonGenerationException e) {
 			log.info("Cann't write value in File (In destroy) " + e);
 		} catch (JsonMappingException e) {
 			log.info("Cann't write value in File (In destroy) " + e);
 		} catch (FileNotFoundException e) {
 			log.info("File Not Found (In destroy) " + e);
-		}catch(IOException e) {
+		} catch (IOException e) {
 			log.info("Cann't write value in File (In destroy) " + e);
 		}
-		System.out.println("In destroy");	
-	} 
-}
+		System.out.println("In destroy");
+	}
+} 

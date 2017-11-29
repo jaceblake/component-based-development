@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:38:52</date>
+  <millis>1511923132197</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:40:37</date>
+  <millis>1511923237197</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:43:00</date>
+  <millis>1511923380832</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:43:35</date>
+  <millis>1511923415000</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:48:04</date>
+  <millis>1511923684861</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:50:12</date>
+  <millis>1511923812528</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:52:01</date>
+  <millis>1511923921610</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:55:01</date>
+  <millis>1511924101101</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:57:21</date>
+  <millis>1511924241426</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:58:41</date>
+  <millis>1511924321152</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'Hello': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"Hello"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T03:59:21</date>
+  <millis>1511924361253</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'jljkl': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"jljkl"; line: 1, column: 11]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T04:15:34</date>
+  <millis>1511925334138</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'h': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"h"; line: 1, column: 3]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T04:15:53</date>
+  <millis>1511925353403</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'h': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"h"; line: 1, column: 3]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T04:46:31</date>
+  <millis>1511927191278</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'h': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"h"; line: 1, column: 3]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:22:55</date>
+  <millis>1511929375270</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: "/"</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:24:17</date>
+  <millis>1511929457660</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: "/"</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:32:40</date>
+  <millis>1511929960814</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<record>
+  <date>2017-11-29T05:32:40</date>
+  <millis>1511929960909</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: "/"</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:33:21</date>
+  <millis>1511930001990</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<record>
+  <date>2017-11-29T05:33:22</date>
+  <millis>1511930002106</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: ")"</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:34:36</date>
+  <millis>1511930076610</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:36:52</date>
+  <millis>1511930212937</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:39:48</date>
+  <millis>1511930388583</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+</log>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:41:13</date>
+  <millis>1511930473518</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:42:15</date>
+  <millis>1511930535737</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<record>
+  <date>2017-11-29T05:42:15</date>
+  <millis>1511930535850</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: ")"</message>
+</record>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-11-29T05:45:53</date>
+  <millis>1511930753369</millis>
+  <sequence>0</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doPost</method>
+  <thread>1</thread>
+  <message>User tried to give invalid song Object (In doPsot)com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'hi': was expecting ('true', 'false' or 'null')
+ at [Source: (String)"hi"; line: 1, column: 5]</message>
+</record>
+<record>
+  <date>2017-11-29T05:45:53</date>
+  <millis>1511930753498</millis>
+  <sequence>1</sequence>
+  <logger>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</logger>
+  <level>INFO</level>
+  <class>de.htwBerlin.ai.kbe.songWebStore.SongsStoreServlet</class>
+  <method>doGet</method>
+  <thread>1</thread>
+  <message>User tried to give non integer SongId (In doGet)java.lang.NumberFormatException: For input string: ")"</message>
+</record>
+</log>
