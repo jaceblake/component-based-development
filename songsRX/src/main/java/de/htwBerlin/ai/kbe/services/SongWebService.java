@@ -26,8 +26,8 @@ public class SongWebService {
 	@GET 
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Collection<Song> getAllContacts() {
-		System.out.println("getAllContacts: Returning all contacts!");
-		return SongsBook.getInstance().getAllContacts();
+		System.out.println("getAllContacts: Returning all Songs!");
+		return SongsBook.getInstance().getAllSongs();
 	}
 
 	//GET http://localhost:8080/helloJAXRS/rest/contacts/1
@@ -37,15 +37,15 @@ public class SongWebService {
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Response getContact(@PathParam("id") Integer id) {
-		Song song = SongsBook.getInstance().getContact(id);
+		Song song = SongsBook.getInstance().getSong(id);
 		if (song != null) {
 			System.out.println("getContact: Returning contact for id " + id);
 			return Response.ok(song).build();
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("No contact found with id " + id).build();
+			return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + id).build();
 		}
 	}
-
+	
 	// POST http://localhost:8080/helloJAXRS/rest/contacts with contact in payload
 	// Returns: Status Code 201 and the new id of the contact in the payload 
 	// (temp. solution)
@@ -59,19 +59,50 @@ public class SongWebService {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createContact(Song song) {
-		System.out.println("createContact: Received contact: " + song.toString());
-		return Response.status(Response.Status.CREATED).entity(SongsBook.getInstance().addContact(song)).build();
+		if (song != null) {
+		System.out.println("createContact: Received Song: " + song.toString());
+		     return Response.status(Response.Status.CREATED).entity(SongsBook.getInstance().addSong(song)).build();
+		}else {
+		     return Response.status(Response.Status.NOT_FOUND).entity("Can't create a this Song bad Payload " ).build();
+		}
 	}
 	
-	//PUT http://localhost:8080/helloJAXRS/rest/contacts/1 with updated contact in payload
+	//PUT http://localhost:8080/helloJAXRS/rest/song/1 with updated contact in Payload
     //Returns 204 on successful update
-	//Returns 404 on contact with provided id not found
-	//Returns 400 on id in URL does not match id in contact
+	//Returns 404 on song with provided id not found
 	@PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
     public Response updateSong(@PathParam("id") Integer id, Song song) {
-        return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity("PUT not implemented").build();
+		
+		if(song != null) {
+			if(id == song.getId()) {
+				boolean check = SongsBook.getInstance().updateSong(song,id);
+				if(check) {
+					return Response.status(Response.Status.CREATED).
+							entity("Sucessfully updated Song ").build();
+				}else {
+					return Response.status(Response.Status.NOT_FOUND).
+							entity("Can't update this song. Song doesn't exists ").build();
+				}
+			}else {
+				Song tmp = SongsBook.getInstance().getSong(id);
+				if(tmp != null) {
+					SongsBook.getInstance().updateSong(song,id);
+					return Response.status(Response.Status.CREATED).
+							entity("Sucessfully updated Song ").build();
+				}else {
+					return Response.status(Response.Status.NOT_FOUND)
+							.entity("Can't update this song. Song doesn't exists ").build();
+				}
+			}
+
+		}else {
+			return Response.status(Response.Status.NOT_FOUND)
+					.entity("Can't update this song bad payload ").build();
+		}
+        
     }
 	
 	//DELETE http://localhost:8080/helloJAXRS/rest/contacts/1
@@ -79,8 +110,16 @@ public class SongWebService {
 	//Returns 404 on provided id not found
 	@DELETE
 	@Path("/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response delete(@PathParam("id") Integer id) {
-		return Response.status(Response.Status.METHOD_NOT_ALLOWED).entity("DELETE not implemented").build();
+		Song song = SongsBook.getInstance().deleteSong(id);
+		if(song != null) {
+			return Response.status(Response.Status.CREATED).
+					entity("Sucessfully deleted Song").build();
+		}else {
+			return Response.status(Response.Status.NOT_FOUND).
+					entity("Can't delete this Song. Song doesn't exists").build();
+		}
 	}
 
 }

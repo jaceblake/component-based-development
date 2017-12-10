@@ -1,8 +1,14 @@
 package de.htwBerlin.ai.kbe.storage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.htwBerlin.ai.kbe.bean.Song;
 
@@ -17,9 +23,16 @@ public class SongsBook {
 	private static Map<Integer,Song> storage;
 	private static SongsBook instance = null;
 	
+	private final String SONGFILENAME = "songs.json";
+	
+	private AtomicInteger currentID = null;
+	
 	private SongsBook() {
-		storage = new ConcurrentHashMap<Integer,Song>();
-		initSomeContacts();
+		try {
+			initializeSongStore(SONGFILENAME);
+		} catch (IOException e) {
+			System.out.println("Can't create Instance....");
+		}
 	}
 	
 	public synchronized static SongsBook getInstance() {
@@ -29,35 +42,58 @@ public class SongsBook {
 		return instance;
 	}
 	
-	private static void initSomeContacts() {
-      // TO DO 
-	 //Load songs.json file
+	private void initializeSongStore(String songFilename) throws IOException {
+
+		if (songFilename == null || songFilename.equals("")) {
+			songFilename = "songs.json";
+		}
+		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
+
+		List<Song> songList = new ObjectMapper()
+				.readValue(input, new TypeReference<List<Song>>() {});
+
+		storage = new ConcurrentHashMap<Integer,Song>();
+
+		songList.stream().forEach(e -> storage.put(e.getId(), e));
+		
+		currentID = new AtomicInteger(storage.size());
+
 	}
 	
-	public Song getContact(Integer id) {
+	public Song getSong(Integer id) {
 		return storage.get(id);
 	}
 	
-	public Collection<Song> getAllContacts() {
+	public Collection<Song> getAllSongs() {
 		return storage.values();
 	}
 	
-	public Integer addContact(Song song) {
-		// Fuer Beleg 3: Das koennen Sie im Songs' store NICHT machen!
-		song.setId((int)storage.keySet().stream().count() + 1);
+	public Integer addSong(Song song) {
+		song.setId(currentID.incrementAndGet());
 		storage.put(song.getId(), song);
 		return song.getId();
 	}
 	
 	// returns true (success), when contact exists in map and was updated
 	// returns false, when contact does not exist in map
-	public boolean updateContact(Song song) {
-		throw new UnsupportedOperationException("updateContact: not yet implemented");
+	public boolean updateSong(Song song,Integer id) {
+		if(storage.get(song.getId()) != null) {
+			storage.replace(id, song);
+			return true;
+		}
+		return false;
 	}
 	
-	// returns deleted contact
-	public Song deleteContact(Integer id) {
-		throw new UnsupportedOperationException("deleteContact: not yet implemented");
+	// returns deleted song
+	public Song deleteSong(Integer id) {
+		Song song = storage.get(id);
+		if(song != null) {
+			storage.remove(id);
+			currentID.decrementAndGet();
+			return song;
+		}else {
+			return song;
+		}
 	}
 	
 }
