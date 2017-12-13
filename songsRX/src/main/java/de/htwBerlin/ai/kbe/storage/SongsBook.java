@@ -2,6 +2,7 @@ package de.htwBerlin.ai.kbe.storage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +28,8 @@ public class SongsBook {
 	
 	private AtomicInteger currentID = null;
 	
+	private List<Song> songList = new ArrayList<Song>();
+	
 	private SongsBook() {
 		try {
 			initializeSongStore(SONGFILENAME);
@@ -49,14 +52,22 @@ public class SongsBook {
 		}
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
 
-		List<Song> songList = new ObjectMapper()
-				.readValue(input, new TypeReference<List<Song>>() {});
+		songList = new ObjectMapper()
+				.readValue(input, new TypeReference<ArrayList<Song>>() {});
 
 		storage = new ConcurrentHashMap<Integer,Song>();
 
-		songList.stream().forEach(e -> storage.put(e.getId(), e));
+		songList.sort((o1, o2) -> o1.getId().compareTo(o2.getId()));
 		
-		currentID = new AtomicInteger(storage.size());
+		songList.forEach(e -> storage.put(e.getId(), e));
+		
+		//ID starts after the biggest ID in the list
+		currentID = new AtomicInteger( songList.get(songList.size()-1).getId());
+	
+			
+		//storage.entrySet().stream().sorted();
+		
+		
 
 	}
 	
@@ -65,6 +76,9 @@ public class SongsBook {
 	}
 	
 	public Collection<Song> getAllSongs() {
+		System.out.println(storage);
+		System.out.println(songList);
+		
 		return storage.values();
 	}
 	
@@ -77,7 +91,8 @@ public class SongsBook {
 	// returns true (success), when contact exists in map and was updated
 	// returns false, when contact does not exist in map
 	public boolean updateSong(Song song,Integer id) {
-		if(storage.get(song.getId()) != null) {
+		
+		if(storage.get(id) != null) {
 			storage.replace(id, song);
 			return true;
 		}

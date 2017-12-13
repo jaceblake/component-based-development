@@ -3,10 +3,10 @@ package de.htwBerlin.ai.kbe.bean;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "song")
-public class Song {
+public class Song{
 	
   private Integer id;
-  private  String title;
+  private  String title;	
   private String artist;
   private String album;
   private Integer released;
@@ -64,7 +64,9 @@ public class Song {
 		return "Song [id=" + id + ", title=" + title + ", artist=" + artist + ", album=" + album + ", released="
 				+ released + "]";
 	}
-	
+
+
+
 	
 	
 }
