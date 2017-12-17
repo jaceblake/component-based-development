@@ -2,6 +2,7 @@ package de.htwBerlin.ai.kbe.storage;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,8 @@ public class SongsBook {
 	
 	private AtomicInteger currentID = null;
 	
+	private List<Song> songList = new ArrayList<Song>();
+	
 	private SongsBook() {
 		try {
 			initializeSongStore(SONGFILENAME);
@@ -50,8 +53,8 @@ public class SongsBook {
 		}
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream(songFilename);
 
-		List<Song> songList = new ObjectMapper()
-				.readValue(input, new TypeReference<List<Song>>() {});
+		songList = new ObjectMapper()
+				.readValue(input, new TypeReference<ArrayList<Song>>() {});
 
 		storage = new ConcurrentHashMap<Integer,Song>();
 
@@ -62,6 +65,7 @@ public class SongsBook {
 		
 		currentID = new AtomicInteger(Collections.max(storage.keySet()));
 
+
 	}
 	
 	public Song getSong(Integer id) {
@@ -69,6 +73,9 @@ public class SongsBook {
 	}
 	
 	public Collection<Song> getAllSongs() {
+		System.out.println(storage);
+		System.out.println(songList);
+		
 		return storage.values();
 	}
 	
