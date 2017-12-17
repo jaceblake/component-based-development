@@ -3,6 +3,7 @@ package de.htwBerlin.ai.kbe.storage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -54,9 +55,12 @@ public class SongsBook {
 
 		storage = new ConcurrentHashMap<Integer,Song>();
 
-		songList.stream().forEach(e -> storage.put(e.getId(), e));
 		
-		currentID = new AtomicInteger(storage.size());
+		songList.stream().sorted((entry_1, entry_2)-> entry_1.getId()
+				.compareTo(entry_2.getId()))
+		        .forEach(entry -> storage.put(entry.getId(), entry));
+		
+		currentID = new AtomicInteger(Collections.max(storage.keySet()));
 
 	}
 	
@@ -77,7 +81,8 @@ public class SongsBook {
 	// returns true (success), when contact exists in map and was updated
 	// returns false, when contact does not exist in map
 	public boolean updateSong(Song song,Integer id) {
-		if(storage.get(song.getId()) != null) {
+		if(storage.get(id) != null) {
+			song.setId(id);
 			storage.replace(id, song);
 			return true;
 		}
@@ -89,7 +94,6 @@ public class SongsBook {
 		Song song = storage.get(id);
 		if(song != null) {
 			storage.remove(id);
-			currentID.decrementAndGet();
 			return song;
 		}else {
 			return song;

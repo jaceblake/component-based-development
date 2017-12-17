@@ -11,13 +11,10 @@ public class Song {
   private String album;
   private Integer released;
 	
-	// needed for JAXB
+	
 	public Song() {
 	}
 
-	
-	// getters and evil setters :-), also needed for JAXB
-	
 	public Integer getId() {
 		return id;
 	}
