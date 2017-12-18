@@ -6,7 +6,7 @@
 curl -X PUT \
      -H "Content-Type: application/json" \
      -H "Accept: */*" \
-     -d "@test.json" \
+     -d "@testPut.json" \
      -v "http://localhost:8080/songsRX/rest/songs/64"
 
 echo "-------------------------------------"

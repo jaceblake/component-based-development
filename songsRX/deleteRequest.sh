@@ -3,11 +3,10 @@
 # test.json ist eine Test-Datei, deren Inhalt als Payload an den Server geschickt wird
 #
 
-curl -X POST \
+curl -X DELETE \
      -H "Content-Type: application/json" \
      -H "Accept: */*" \
-     -d "@test.json" \
-     -v "http://localhost:8080/songsRX/rest/songs"
+     -v "http://localhost:8080/songsRX/rest/songs/64"
 
 echo "-------------------------------------"
 

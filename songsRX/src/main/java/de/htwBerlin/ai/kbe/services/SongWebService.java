@@ -55,11 +55,12 @@ public class SongWebService {
 	// Aber dazu brauchen wir "dependency injection", also spaeter
 	// @Context UriInfo uriInfo
 	// return Response.created(uriInfo.getAbsolutePath()+<newId>).build(); 
+	// at least song title required to create a new song
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createSong(Song song) {
-		if (song != null) {
+		if (song != null && song.getTitle() != null) {
 		System.out.println("createsong: Received Song: " + song.toString());
 		     return Response.status(Response.Status.CREATED).entity(SongsBook.getInstance().addSong(song)).build();
 		}else {
@@ -80,7 +81,7 @@ public class SongWebService {
 			if(id == song.getId()) {
 				boolean check = SongsBook.getInstance().updateSong(song,id);
 				if(check) {
-					return Response.status(Response.Status.CREATED).
+					return Response.status(Response.Status.ACCEPTED).
 							entity("Sucessfully updated Song ").build();
 				}else {
 					return Response.status(Response.Status.NOT_FOUND).
@@ -90,7 +91,7 @@ public class SongWebService {
 				Song tmp = SongsBook.getInstance().getSong(id);
 				if(tmp != null) {
 					SongsBook.getInstance().updateSong(song,id);
-					return Response.status(Response.Status.CREATED).
+					return Response.status(Response.Status.ACCEPTED).
 							entity("Sucessfully updated Song ").build();
 				}else {
 					return Response.status(Response.Status.NOT_FOUND)
@@ -114,7 +115,7 @@ public class SongWebService {
 	public Response delete(@PathParam("id") Integer id) {
 		Song song = SongsBook.getInstance().deleteSong(id);
 		if(song != null) {
-			return Response.status(Response.Status.CREATED).
+			return Response.status(Response.Status.NO_CONTENT).
 					entity("Sucessfully deleted Song").build();
 		}else {
 			return Response.status(Response.Status.NOT_FOUND).
