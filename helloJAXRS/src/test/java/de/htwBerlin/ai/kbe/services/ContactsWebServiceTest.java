@@ -27,6 +27,13 @@ public class ContactsWebServiceTest extends JerseyTest {
     }
     
     @Test
+    public void getContactDefaultContentTypeShouldBeJson() {
+        String response = target("/contacts/1").request().get(String.class);
+        System.out.println(response);
+        Assert.assertTrue(response.startsWith("<?xml"));
+    }
+    
+    @Test
     public void getContactWithValidIdShouldReturnContact() {
         Contact contact = target("/contacts/1").request(MediaType.APPLICATION_JSON).get(Contact.class);
         System.out.println(contact);

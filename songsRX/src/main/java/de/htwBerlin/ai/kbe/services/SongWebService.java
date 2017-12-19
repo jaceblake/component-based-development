@@ -20,9 +20,7 @@ import de.htwBerlin.ai.kbe.storage.SongsBook;
 //URL fuer diesen Service ist: http://localhost:8080/songsRx/rest/songs 
 @Path("/songs")
 public class SongWebService {
-	
-	//GET http://localhost:8080/songsRx/rest/songs
-	//Returns all songs
+
 	@GET 
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Collection<Song> getAllSongs() {
@@ -30,9 +28,7 @@ public class SongWebService {
 		return SongsBook.getInstance().getAllSongs();
 	}
 
-	//GET http://localhost:8080/songsRx/rest/songs/1
-	//Returns: 200 and song with id 1
-	//Returns: 404 on provided id not found
+
 	@GET
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
@@ -46,21 +42,13 @@ public class SongWebService {
 		}
 	}
 	
-	// POST http://localhost:8080/songsRx/rest/songs with song in payload
-	// Returns: Status Code 201 and the new id of the song in the payload 
-	// (temp. solution)
-	//
-	// Besser: Status Code 201 und URI fuer den neuen Eintrag im http-header 'Location' zurueckschicken, also:
-	// Location: /songsRx/rest/songs/neueID
-	// Aber dazu brauchen wir "dependency injection", also spaeter
-	// @Context UriInfo uriInfo
-	// return Response.created(uriInfo.getAbsolutePath()+<newId>).build(); 
-	// at least song title required to create a new song
+
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createSong(Song song) {
-		if (song != null && song.getTitle() != null) {
+		//only id and released field can be null or empty
+		if (song != null && song.getTitle() != null && song.getArtist() != null && song.getAlbum() != null ) {
 		System.out.println("createsong: Received Song: " + song.toString());
 		     return Response.status(Response.Status.CREATED).entity(SongsBook.getInstance().addSong(song)).build();
 		}else {
@@ -68,16 +56,15 @@ public class SongWebService {
 		}
 	}
 	
-	//PUT http://localhost:8080/songsRx/rest/song/1 with updated song in Payload
-    //Returns 204 on successful update
-	//Returns 404 on song with provided id not found
+
 	@PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
     public Response updateSong(@PathParam("id") Integer id, Song song) {
 		
-		if(song != null) {
+		//if client want to update a file ,album name ,title,Artist should be given
+		if(song != null && song.getTitle() != null && song.getArtist() != null && song.getAlbum() != null ) {
 			if(id == song.getId()) {
 				boolean check = SongsBook.getInstance().updateSong(song,id);
 				if(check) {
@@ -106,9 +93,6 @@ public class SongWebService {
         
     }
 	
-	//DELETE http://localhost:8080/songsRx/rest/songs/1
-    //Returns 204 on successful delete
-	//Returns 404 on provided id not found
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)

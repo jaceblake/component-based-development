@@ -36,6 +36,12 @@ public class SongWebServiceTest extends JerseyTest {
         Assert.assertTrue(response.startsWith("<?xml"));
     }
     
+    @Test
+    public void getSongContentTypeShouldBeJson() {
+        String response = target("/songs/82").request(MediaType.APPLICATION_JSON).get(String.class);
+        System.out.println(response);
+        Assert.assertTrue(response.startsWith("{"));
+    }
 
     //test if valid song returns
     @Test
@@ -65,13 +71,14 @@ public class SongWebServiceTest extends JerseyTest {
 
     }
     
-    //test if post fails
+    //test if post fails ,album name ,title,Artist should be given
+    //otherwise is a bad Payload
     
     @Test
     public void createSongShouldReturn404() {
     		Song s = new Song();
     		s.setAlbum("Geeks");
- 
+            
     		s.setArtist("Meeky Mike");
     		s.setReleased(2018);
         Response response = target("/songs").request().post(Entity.xml(s));
@@ -80,6 +87,7 @@ public class SongWebServiceTest extends JerseyTest {
     }
     
     //test if put success
+    // id exists in database
     
     @Test
     public void PutSongShouldReturn202() {
@@ -94,14 +102,39 @@ public class SongWebServiceTest extends JerseyTest {
     }
     
     //test if put fails
+    // id doesn't exists
     @Test
-    public void PutSongShouldReturn404() {
+    public void PutSongShouldReturn404_idNotFound() {
     		Song s = new Song();
     		s.setAlbum("Geeks");
     		s.setTitle("Geek meets Greek");
     		s.setArtist("Meeky Mike");
     		s.setReleased(2018);
         Response response = target("/songs/645").request().put(Entity.xml(s));
+        Assert.assertEquals(404, response.getStatus());
+
+    }
+    
+    //test if put fails
+    // Bad Payload
+    @Test
+    public void PutSongShouldReturn404_badPayload() {
+    	Song s = new Song();
+        Response response = target("/songs/82").request().put(Entity.xml(s));
+        Assert.assertEquals(404, response.getStatus());
+
+    }
+    
+    //test if put fails
+    // Bad Payload must given album name ,title,Artist
+    @Test
+    public void PutSongShouldReturn404_badPayload_requireField_isMissing() {
+    	Song s = new Song();
+		s.setAlbum("Geeks");
+		s.setTitle("Geek meets Greek");
+        //artist name is missing
+		s.setReleased(2018);
+        Response response = target("/songs/82").request().put(Entity.xml(s));
         Assert.assertEquals(404, response.getStatus());
 
     }
