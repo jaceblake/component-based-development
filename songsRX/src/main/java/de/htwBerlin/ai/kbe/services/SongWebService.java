@@ -13,19 +13,35 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import de.htwBerlin.ai.kbe.bean.Observer;
 import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.storage.SongsBook;
 
 
+
 //URL fuer diesen Service ist: http://localhost:8080/songsRx/rest/songs 
 @Path("/songs")
-public class SongWebService {
+public class SongWebService implements Observer {
+	
+	private String session;
 
-	@GET 
+	private AuthWebService auth;
+	
+	public SongWebService(AuthWebService auth) {
+		this.auth = auth;
+		this.auth.registriere(this);
+	}
+	
+	@GET
+	@Path("/{sess}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Collection<Song> getAllSongs() {
+	public Collection<Song> getAllSongs(@PathParam("sess") String sess) {
+		if(session != null && sess.equals(session)) {
 		System.out.println("getAllSongs: Returning all Songs!");
 		return SongsBook.getInstance().getAllSongs();
+		}else {
+			return null;
+		}
 	}
 
 
@@ -105,6 +121,13 @@ public class SongWebService {
 			return Response.status(Response.Status.NOT_FOUND).
 					entity("Can't delete this Song. Song doesn't exists").build();
 		}
+	}
+
+
+	@Override
+	public void update(String session) {
+	
+		this.session = session;
 	}
 
 }
