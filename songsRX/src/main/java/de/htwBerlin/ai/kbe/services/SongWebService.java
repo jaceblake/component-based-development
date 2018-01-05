@@ -2,6 +2,7 @@ package de.htwBerlin.ai.kbe.services;
 
 import java.util.Collection;
 
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,38 +11,29 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import de.htwBerlin.ai.kbe.bean.Observer;
 import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.storage.SongsBook;
 
 
 
-//URL fuer diesen Service ist: http://localhost:8080/songsRx/rest/songs 
+//URL fuer diesen Service ist: http://http://localhost:8080/songsRX/rest/songs 
 @Path("/songs")
-public class SongWebService implements Observer {
+public class SongWebService  {
 	
-	private String session;
+	
 
-	private AuthWebService auth;
-	
-	public SongWebService(AuthWebService auth) {
-		this.auth = auth;
-		this.auth.registriere(this);
-	}
-	
+    
 	@GET
-	@Path("/{sess}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Collection<Song> getAllSongs(@PathParam("sess") String sess) {
-		if(session != null && sess.equals(session)) {
+	public Collection<Song> getAllSongs() {
+		
 		System.out.println("getAllSongs: Returning all Songs!");
 		return SongsBook.getInstance().getAllSongs();
-		}else {
-			return null;
-		}
+		
 	}
 
 
@@ -124,10 +116,5 @@ public class SongWebService implements Observer {
 	}
 
 
-	@Override
-	public void update(String session) {
-	
-		this.session = session;
-	}
 
 }
