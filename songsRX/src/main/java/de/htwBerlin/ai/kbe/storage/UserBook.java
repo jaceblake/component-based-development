@@ -69,13 +69,7 @@ public class UserBook {
 		return storage.values();
 	}
 	
-	public void updateStorage(String userId,String session) {
-		
-	  User user = storage.get(userId);
-	  user.setSession(session);
-      storage.replace(userId, user);
-			
-	}
+
 	
 	
 }

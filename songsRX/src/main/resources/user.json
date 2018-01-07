@@ -2,13 +2,10 @@
   "id" : 1,
   "userId" : "mmuster",
   "lastName" : "Lukas",
-  "firstName" : "Graham",
-  "session" : ""
+  "firstName" : "Graham"
 }, {
   "id" : 2,
   "userId" : "eschueler",
   "lastName" : "Schuler",
-  "firstName" : "Elena",
-  "session" : ""
+  "firstName" : "Elena"
 }]
- 

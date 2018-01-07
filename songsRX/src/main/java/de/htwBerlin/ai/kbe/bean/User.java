@@ -9,7 +9,7 @@ public class User {
 	private String userId;
 	private String lastName;
 	private String firstName ;
-	private String session;
+
 	
 	public User() {}
 	
@@ -45,28 +45,12 @@ public class User {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
-	public String getSession() {
-		return session;
-	}
-	
-	public void setSession(String session) {
-		this.session = session;
-	}
 
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userId=" + userId + ", lastName=" + lastName + ", firstName=" + firstName
-				+ ", session=" + session + "]";
+		return "User [id=" + id + ", userId=" + userId + ", lastName=" + lastName + ", firstName=" + firstName + "]";
 	}
-
-
-
-	
-	
-	
-	
 
 	
 }

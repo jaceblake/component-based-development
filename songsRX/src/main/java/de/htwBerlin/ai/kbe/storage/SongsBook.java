@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -56,7 +57,7 @@ public class SongsBook {
 		songList = new ObjectMapper()
 				.readValue(input, new TypeReference<ArrayList<Song>>() {});
 
-		storage = new ConcurrentHashMap<Integer,Song>();
+		storage = new HashMap<Integer,Song>();
 
 		
 		songList.stream().sorted((entry_1, entry_2)-> entry_1.getId()

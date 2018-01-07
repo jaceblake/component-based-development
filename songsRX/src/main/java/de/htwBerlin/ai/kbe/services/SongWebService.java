@@ -2,16 +2,17 @@ package de.htwBerlin.ai.kbe.services;
 
 import java.util.Collection;
 
-
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -20,34 +21,51 @@ import de.htwBerlin.ai.kbe.storage.SongsBook;
 
 
 
-//URL fuer diesen Service ist: http://http://localhost:8080/songsRX/rest/songs 
+//URL fuer diesen Service ist: http://localhost:8080/songsRX/rest/songs 
 @Path("/songs")
 public class SongWebService  {
 	
 	
+	@Inject
+	 private AuthWebService auth;
 
-    
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Collection<Song> getAllSongs() {
-		
-		System.out.println("getAllSongs: Returning all Songs!");
-		return SongsBook.getInstance().getAllSongs();
-		
-	}
+	public Response getAllSongs(@HeaderParam("Authorization") String token) {
+		String userId = auth.getUserIdByToken(token);
+		if( userId == null) {
+		return Response.status(Response.Status.UNAUTHORIZED)
+				.entity("You don't have any permission").build();
 
+		} else {
+			System.out.println("getAllSongs: Returning all Songs!");
+			@SuppressWarnings("rawtypes")
+			GenericEntity entity = new GenericEntity<Collection<Song>>(SongsBook.getInstance().getAllSongs()) {};
+			return Response.ok(entity).build();
+		}	
+	}
 
 	@GET
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response getSong(@PathParam("id") Integer id) {
-		Song song = SongsBook.getInstance().getSong(id);
-		if (song != null) {
-			System.out.println("getsong: Returning song for id " + id);
-			return Response.ok(song).build();
+	public Response getSong(@PathParam("id") Integer id, @HeaderParam("Authorization") String token) {
+		if(token == null) {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have any permission").build();
+		}else {	
+		String userId = auth.getUserIdByToken(token);
+		if (userId == null) {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have any permission").build();
+
 		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + id).build();
+			Song song = SongsBook.getInstance().getSong(id);
+			if (song != null) {
+				System.out.println("getsong: Returning song for id " + id);
+				return Response.ok(song).build();
+			} else {
+				return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + id).build();
+			}
 		}
+	}
 	}
 	
 
