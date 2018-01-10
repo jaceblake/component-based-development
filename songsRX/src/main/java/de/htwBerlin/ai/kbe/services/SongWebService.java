@@ -26,46 +26,31 @@ import de.htwBerlin.ai.kbe.storage.SongsBook;
 public class SongWebService  {
 	
 	
-	@Inject
-	 private AuthWebService auth;
+	//@Inject
+	 private AuthWebService auth = new AuthWebService() ;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getAllSongs(@HeaderParam("Authorization") String token) {
-		String userId = auth.getUserIdByToken(token);
-		if( userId == null) {
-		return Response.status(Response.Status.UNAUTHORIZED)
-				.entity("You don't have any permission").build();
+	public Response getAllSongs() {
 
-		} else {
-			System.out.println("getAllSongs: Returning all Songs!");
-			@SuppressWarnings("rawtypes")
-			GenericEntity entity = new GenericEntity<Collection<Song>>(SongsBook.getInstance().getAllSongs()) {};
-			return Response.ok(entity).build();
-		}	
+		System.out.println("getAllSongs: Returning all Songs!");
+		@SuppressWarnings("rawtypes")
+		GenericEntity entity = new GenericEntity<Collection<Song>>(SongsBook.getInstance().getAllSongs()) {};
+		return Response.ok(entity).build();
 	}
 
 	@GET
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response getSong(@PathParam("id") Integer id, @HeaderParam("Authorization") String token) {
-		if(token == null) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have any permission").build();
-		}else {	
-		String userId = auth.getUserIdByToken(token);
-		if (userId == null) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have any permission").build();
-
+	public Response getSong(@PathParam("id") Integer id) {
+       
+		Song song = SongsBook.getInstance().getSong(id);
+		if (song != null) {
+			System.out.println("getsong: Returning song for id " + id);
+			return Response.ok(song).build();
 		} else {
-			Song song = SongsBook.getInstance().getSong(id);
-			if (song != null) {
-				System.out.println("getsong: Returning song for id " + id);
-				return Response.ok(song).build();
-			} else {
-				return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + id).build();
-			}
+			return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + id).build();
 		}
-	}
 	}
 	
 

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.ws.rs.core.Response;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,7 +21,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthWebService {
 	
     
-	private static Map<String,String> tokenMap = new ConcurrentHashMap<String,String>();
+	//private static Map<String,String> tokenMap = new ConcurrentHashMap<String,String>();
+	
+	//@Inject
+	private AuthContainer authContainer = new AuthContainer();
 	
 	@Context 
 	HttpServletRequest request;
@@ -45,7 +49,7 @@ public class AuthWebService {
 		
 		if(user != null ) {
         String token = request.getSession().getId();
-        tokenMap.put(token, userId);
+        authContainer.setUserIdByToken(token, userId);
 		return Response
 				   .status(200)
 				   .entity("Your Token is "+ token).build();
@@ -55,9 +59,16 @@ public class AuthWebService {
 	}
 
 	public String getUserIdByToken(String token) {
-		return tokenMap.get(token);
+		return authContainer.getUserIdByToken(token);
 	}
 
+	public boolean authenticate(String authToken) {
+		String userId = authContainer.getUserIdByToken(authToken);
+		if(userId != null) {
+			return true;
+		}
+		return false;
+	}
 
 		  	
 }
