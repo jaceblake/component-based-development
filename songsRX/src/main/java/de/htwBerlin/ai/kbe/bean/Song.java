@@ -1,17 +1,27 @@
 package de.htwBerlin.ai.kbe.bean;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+
 @XmlRootElement(name = "song")
-public class Song{
-	
-  private Integer id;
-  private  String title;	
-  private String artist;
-  private String album;
-  private Integer released;
-	
-	
+@Entity
+@Table(name = "Song")
+public class Song {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String title;
+	private String artist;
+	private String album;
+	private Integer released;
+
 	public Song() {
 	}
 
@@ -55,15 +65,10 @@ public class Song{
 		this.released = released;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Song [id=" + id + ", title=" + title + ", artist=" + artist + ", album=" + album + ", released="
 				+ released + "]";
 	}
 
-
-
-	
-	
 }
