@@ -14,7 +14,7 @@ import de.htwBerlin.ai.kbe.bean.SongLists;
 import de.htwBerlin.ai.kbe.bean.User;
 
 @Singleton
-public class DBSongListsDAO implements SongListsDAO {
+public class DBSongListsDAO implements ISongListsDAO {
 
     private EntityManagerFactory emf;
 

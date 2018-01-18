@@ -14,7 +14,7 @@ import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.bean.User;
 
 @Singleton
-public class DBSongsDAO implements SongsDAO {
+public class DBSongsDAO implements ISongsDAO {
 
     private EntityManagerFactory emf;
 
@@ -68,7 +68,7 @@ public class DBSongsDAO implements SongsDAO {
     }
 
     @Override
-    public void deleteSong(Integer id) throws PersistenceException {
+    public boolean deleteSong(Integer id) throws PersistenceException {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         Song Song = null;
@@ -79,7 +79,9 @@ public class DBSongsDAO implements SongsDAO {
                 transaction.begin();
                 em.remove(Song);
                 transaction.commit();
+                return true;
             }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error removing Song: " + e.getMessage());

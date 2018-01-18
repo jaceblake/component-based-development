@@ -17,22 +17,20 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.htwBerlin.ai.kbe.bean.SongLists;
+import de.htwBerlin.ai.kbe.storage.ISongListsDAO;
 
-import de.htwBerlin.ai.kbe.storage.SongListsDAO;
 
 //URL fuer diesen Service ist: http://localhost:8080/songsRX/rest/userId 
 @Path("/userId")
 public class SongListsWebService {
 
-	private SongListsDAO SongListsDao;
+	private ISongListsDAO SongListsDao;
 
 	@Inject
-	public SongListsWebService(SongListsDAO dao) {
+	public SongListsWebService(ISongListsDAO dao) {
 		this.SongListsDao = dao;
 
 	}
-
-	private AuthWebService auth = new AuthWebService();
 
 	@GET
 	@Path("/{id}/songLists")

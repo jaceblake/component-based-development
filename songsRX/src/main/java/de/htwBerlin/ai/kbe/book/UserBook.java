@@ -1,4 +1,4 @@
-package de.htwBerlin.ai.kbe.storage;
+package de.htwBerlin.ai.kbe.book;
 
 import java.io.IOException;
 import java.io.InputStream;

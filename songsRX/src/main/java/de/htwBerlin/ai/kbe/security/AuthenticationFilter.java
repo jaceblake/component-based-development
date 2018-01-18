@@ -1,4 +1,4 @@
-package de.htwBerlin.ai.kbe.services;
+package de.htwBerlin.ai.kbe.security;
 
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
@@ -14,8 +14,13 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	
 	public static final String AUTHENTICATION_HEADER = "Authorization";
 
-	//@Inject
-	private AuthContainer authContainer = new AuthContainer();
+	
+	private IAuthContainer authContainer;
+	
+	@Inject
+	public AuthenticationFilter(IAuthContainer authContainer) {
+		this.authContainer = authContainer;
+	}
 
 	@Override
 	public void filter(ContainerRequestContext containerRequest) throws WebApplicationException {

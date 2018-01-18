@@ -17,37 +17,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.htwBerlin.ai.kbe.bean.Song;
-import de.htwBerlin.ai.kbe.storage.SongsBook;
-import de.htwBerlin.ai.kbe.storage.SongsDAO;
+import de.htwBerlin.ai.kbe.book.SongsBook;
+import de.htwBerlin.ai.kbe.storage.ISongsDAO;
+
 
 //URL fuer diesen Service ist: http://localhost:8080/songsRX/rest/songs 
 @Path("/songs")
 public class SongWebService {
 
-	private SongsDAO songsDao;
+	private ISongsDAO songsDao;
 
 	@Inject
-	public SongWebService(SongsDAO dao) {
+	public SongWebService(ISongsDAO dao) {
 		this.songsDao = dao;
 
 	}
 
-	private AuthWebService auth = new AuthWebService();
-
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Collection<Song> getAllSongs() {
-
 		System.out.println("getAllSongs: Returning all Songs!");
-		// @SuppressWarnings("rawtypes")
-
-		// GenericEntity entity = new
-		// GenericEntity<Collection<Song>>(SongsBook.getInstance().getAllSongs()) {};
-		// GenericEntity entity = new
-		// GenericEntity<Collection<Song>>(SongsBook.getInstance().getAllSongs()) {};
-
-		// return Response.ok(entity).build();
-
 		return songsDao.findAllSongs();
 	}
 
@@ -55,8 +44,7 @@ public class SongWebService {
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Response getSong(@PathParam("id") Integer id) {
-
-		Song song = SongsBook.getInstance().getSong(id);
+		Song song = songsDao.findSongById(id);
 		if (song != null) {
 			System.out.println("getsong: Returning song for id " + id);
 			return Response.ok(song).build();
@@ -70,26 +58,15 @@ public class SongWebService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createSong(Song song) {
 		System.out.println(song);
-		// only id and released field can be null or empty
-		// if (song != null && song.getTitle() != null && song.getArtist() != null &&
-		// song.getAlbum() != null ) {
-		// System.out.println("createsong: Received Song: " + song.toString());
-		// return
-		// Response.status(Response.Status.CREATED).entity(SongsBook.getInstance().addSong(song)).build();
-		// }else {
-		// return Response.status(Response.Status.NOT_FOUND).entity("Can't create a this
-		// Song bad Payload " ).build();
-		// }
-
 		if (song != null && song.getTitle() != null && song.getArtist() != null) {
 			int newId = songsDao.saveSong(song);
-			return Response.status(Response.Status.CREATED).entity("New Song Created ").build();
+			return Response.status(Response.Status.CREATED).entity("New Song Created with " + newId).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("Can't create a this Song bad Payload ").build();
 		}
-		
 	}
 
+	//ToDo plugin to database
 	@PUT
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/{id}")
@@ -127,8 +104,8 @@ public class SongWebService {
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response delete(@PathParam("id") Integer id) {
-		Song song = SongsBook.getInstance().deleteSong(id);
-		if (song != null) {
+		boolean check = songsDao.deleteSong(id);
+		if (check) {
 			return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully deleted Song").build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("Can't delete this Song. Song doesn't exists")

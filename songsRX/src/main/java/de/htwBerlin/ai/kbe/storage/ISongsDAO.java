@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import de.htwBerlin.ai.kbe.bean.Song;
 
-public interface SongsDAO {
+public interface ISongsDAO {
 
 	/**
 	 * Retrieves a Song
@@ -34,5 +34,5 @@ public interface SongsDAO {
 	 * 
 	 * @param id
 	 */
-	public void deleteSong(Integer id);
+	public boolean deleteSong(Integer id);
 }

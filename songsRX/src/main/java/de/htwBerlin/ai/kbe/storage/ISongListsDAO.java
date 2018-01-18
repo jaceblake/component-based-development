@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import de.htwBerlin.ai.kbe.bean.SongLists;
 
-public interface SongListsDAO {
+public interface ISongListsDAO {
 
 	/**
 	 * Retrieves a SongLists

@@ -1,6 +1,8 @@
-package de.htwBerlin.ai.kbe.services;
+package de.htwBerlin.ai.kbe.config;
 
 import org.glassfish.jersey.server.ResourceConfig;
+
+import de.htwBerlin.ai.kbe.security.AuthenticationFilter;
 
 public class MyApplication extends ResourceConfig
 {

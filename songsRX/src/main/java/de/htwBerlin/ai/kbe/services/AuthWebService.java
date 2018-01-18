@@ -14,17 +14,21 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import de.htwBerlin.ai.kbe.bean.User;
-import de.htwBerlin.ai.kbe.storage.UserBook;
+import de.htwBerlin.ai.kbe.book.UserBook;
+import de.htwBerlin.ai.kbe.security.AuthContainer;
+import de.htwBerlin.ai.kbe.security.IAuthContainer;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 @Path("/auth")
 public class AuthWebService {
 	
-    
-	//private static Map<String,String> tokenMap = new ConcurrentHashMap<String,String>();
+	private IAuthContainer authContainer;
 	
-	//@Inject
-	private AuthContainer authContainer = new AuthContainer();
+	@Inject
+	public AuthWebService(IAuthContainer authContainer) {
+		this.authContainer = authContainer;
+	}
 	
 	@Context 
 	HttpServletRequest request;
