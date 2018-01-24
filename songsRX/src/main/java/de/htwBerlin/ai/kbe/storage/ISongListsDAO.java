@@ -4,6 +4,11 @@ import java.util.Collection;
 
 import de.htwBerlin.ai.kbe.bean.SongLists;
 
+/**
+ * CRD -> implemented all , U not required
+ * @author 
+ *
+ */
 public interface ISongListsDAO {
 
 	/**

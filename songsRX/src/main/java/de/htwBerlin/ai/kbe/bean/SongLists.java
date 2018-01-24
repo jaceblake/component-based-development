@@ -1,13 +1,19 @@
 package de.htwBerlin.ai.kbe.bean;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
 
 @XmlRootElement(name = "songlists")
 @Entity
@@ -16,11 +22,27 @@ public class SongLists {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Integer id;
-	private String owner;
 	private boolean isPublic;
-	private ArrayList<Integer> songs;
+	
+   @ManyToMany(cascade = CascadeType.ALL)
+   @JoinTable(name = "SongList_songs", 
+         joinColumns = { @JoinColumn(name = "Songlist_id") }, 
+         inverseJoinColumns = { @JoinColumn(name = "Song_id") })
+	private List<Song> songs ;
+	
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    
+
+	public SongLists(boolean isPublic, User user,List<Song> songs) {
+		super();
+		this.isPublic = isPublic;
+		this.user = user;
+		this.songs = songs;
+	}
 
 	public SongLists() {
 	}
@@ -32,14 +54,11 @@ public class SongLists {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getOwner() {
-		return owner;
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
 
 	public boolean isPublic() {
 		return isPublic;
@@ -49,11 +68,11 @@ public class SongLists {
 		this.isPublic = isPublic;
 	}
 
-	public ArrayList<Integer> getSongs() {
+	public List<Song> getSongs() {
 		return songs;
 	}
 
-	public void setSongs(ArrayList<Integer> songs) {
+	public void setSongs(List<Song> songs) {
 		this.songs = songs;
 	}
 

@@ -1,9 +1,13 @@
 package de.htwBerlin.ai.kbe.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,9 +25,34 @@ public class Song {
 	private String artist;
 	private String album;
 	private Integer released;
+	
+	@ManyToMany(mappedBy="songs")
+	private List<SongLists> songlists ;
+
+
+	public Song(String title, String album,String artist, Integer released) {
+		super();
+		this.title = title;
+		this.artist = artist;
+		this.album = album;
+		this.released = released;
+	}
 
 	public Song() {
 	}
+	
+    public List<SongLists> getSonglists() {
+        if(songlists == null) {
+        	songlists =  new ArrayList<SongLists>();
+        }
+        return songlists;
+    }
+
+    public void setSonglists(List<SongLists> songlists) {
+        this.songlists = songlists;
+    }
+    
+
 
 	public Integer getId() {
 		return id;

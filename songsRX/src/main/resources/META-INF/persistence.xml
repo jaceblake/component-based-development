@@ -12,7 +12,7 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" 
-                      value="jdbc:mysql://db.f4.htw-berlin.de:3306/_s0549391__songsBd"/>
+                      value="jdbc:mysql://db.f4.htw-berlin.de:3306/_s0549391__songBDTest"/>
             <property name="javax.persistence.jdbc.user" value="s0549391"/>
             <property name="javax.persistence.jdbc.password" value="jahidmustafa"/>
 
