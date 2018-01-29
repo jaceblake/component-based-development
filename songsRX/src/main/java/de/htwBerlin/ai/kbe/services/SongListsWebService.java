@@ -132,21 +132,28 @@ public class SongListsWebService {
 	}
 
 	@DELETE
-	 @Path("/{id}/songLists/{list_id}")
-	 @Produces(MediaType.TEXT_PLAIN)
-	 public Response delete(@HeaderParam("Authorization") String token, @PathParam("id") String id,@PathParam("list_id") int list_id) {
-		 if (authContainer.getUserIdByToken(token).equals(id)){
-	 if (true) {
-	 return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully deleted SongLists").build();
-	 } else {
-	 return Response.status(Response.Status.NOT_FOUND).entity("Can't delete this SongLists. SongLists doesn't exists")
-	 .build();
-	 }
-	 
-	 
-	 }
-		 return Response.status(Response.Status.UNAUTHORIZED).entity("Not authorized to delete  other users playlist ").build();
+	@Path("/{id}/songLists/{list_id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response delete(@HeaderParam("Authorization") String token, @PathParam("id") String id,
+			@PathParam("list_id") int list_id) {
+		
+		System.out.println(authContainer.getUserIdByToken(token));
+		System.out.println(id);
+		if (authContainer.getUserIdByToken(token).equals(id)) {
+			
+			System.out.println("here");
 
-		 }
+			if (SongListsDao.deleteSongLists(list_id)) {
+				return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully deleted SongLists").build();
+			} else {
+				return Response.status(Response.Status.NOT_FOUND)
+						.entity("Can't delete this SongLists. SongLists doesn't exists").build();
+			}
+
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("Not authorized to delete  other users playlist ")
+				.build();
+
+	}
 
 }

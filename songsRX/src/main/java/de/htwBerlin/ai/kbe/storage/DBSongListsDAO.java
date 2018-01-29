@@ -94,7 +94,7 @@ public class DBSongListsDAO implements ISongListsDAO {
     }
 
     @Override
-    public void deleteSongLists(Integer id) throws PersistenceException {
+    public boolean deleteSongLists(Integer id)  {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         SongLists SongLists = null;
@@ -105,14 +105,17 @@ public class DBSongListsDAO implements ISongListsDAO {
                 transaction.begin();
                 em.remove(SongLists);
                 transaction.commit();
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error removing SongLists: " + e.getMessage());
             transaction.rollback();
-            throw new PersistenceException("Could not remove entity: " + e.toString());
+            return false;
+            //throw new PersistenceException("Could not remove entity: " + e.toString());
         } finally {
             em.close();
         }
+		return true;
     }
 }

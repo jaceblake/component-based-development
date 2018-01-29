@@ -46,6 +46,7 @@ public interface ISongListsDAO {
 	 * Deletes the SongLists for the provided id
 	 * 
 	 * @param id
+	 * @return 
 	 */
-	public void deleteSongLists(Integer id);
+	public boolean deleteSongLists(Integer id);
 }
