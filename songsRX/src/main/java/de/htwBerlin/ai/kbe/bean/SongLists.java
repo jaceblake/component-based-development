@@ -26,13 +26,13 @@ public class SongLists {
 	private Integer id;
 	private boolean isPublic;
 	
-   @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+   @ManyToMany(cascade = CascadeType.MERGE,fetch=FetchType.EAGER)
    @JoinTable(name = "SongList_songs", 
          joinColumns = { @JoinColumn(name = "Songlist_id") }, 
          inverseJoinColumns = { @JoinColumn(name = "Song_id") })
 	private List<Song> songs ;
 	
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
     
@@ -45,9 +45,18 @@ public class SongLists {
 		this.songs = songs;
 	}
 
-	public SongLists() {
+	public SongLists(boolean isPublic, List<Song> songs) {
+		super();
+		this.isPublic = isPublic;
+		this.songs = songs;
 	}
+	
+	
+	public SongLists(){}
 
+	public int getId(){
+		return this.id;
+	}
 
 	
 	public void setUser(User user) {
@@ -55,6 +64,9 @@ public class SongLists {
 	}
 	
 	
+	public User getUser(User user) {
+		return this.user;
+	}
 
 
 	public boolean isPublic() {

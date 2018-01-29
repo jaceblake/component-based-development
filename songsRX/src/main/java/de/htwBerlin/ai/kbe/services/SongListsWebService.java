@@ -1,5 +1,7 @@
 package de.htwBerlin.ai.kbe.services;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -105,36 +107,46 @@ public class SongListsWebService {
 
 	}
 
+	@POST
+	@Path("/{id}/songLists/")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response createSongLists(@HeaderParam("Authorization") String token, @PathParam("id") String id,
+			SongLists SongLists) throws URISyntaxException {
+		System.out.println(SongLists);
 
-	 @POST
-	 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+		if (authContainer.getUserIdByToken(token).equals(id)) {
+			if (SongLists != null && SongLists.getSongs() != null) {
+				int res = SongListsDao.saveSongLists(SongLists);
+
+				if (res != 0)
+					return Response.created(new URI("/songsRX/rest/userId/" + id + "/songLists/" + res)).build();
+				// return Response.status(Response.Status.CREATED).entity("New
+				// SongLists Created").build();
+			}
+			return Response.status(Response.Status.BAD_REQUEST).build();
+
+		}
+		return Response.status(Response.Status.UNAUTHORIZED).entity("Not authorized to save for other user ").build();
+
+	}
+
+	@DELETE
+	 @Path("/{id}/songLists/{list_id}")
 	 @Produces(MediaType.TEXT_PLAIN)
-	 public Response createSongLists(SongLists SongLists) {
-	 System.out.println(SongLists);
-
-	 if (SongLists != null  && SongLists.getSongs() != null) {
-	  SongListsDao.saveSongLists(SongLists);
-	 return Response.status(Response.Status.CREATED).entity("New SongLists Created").build();
+	 public Response delete(@HeaderParam("Authorization") String token, @PathParam("id") String id,@PathParam("list_id") int list_id) {
+		 if (authContainer.getUserIdByToken(token).equals(id)){
+	 if (true) {
+	 return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully deleted SongLists").build();
 	 } else {
-	 return Response.status(Response.Status.NOT_FOUND).entity("Can't create  this SongLists bad Payload" ).build();
+	 return Response.status(Response.Status.NOT_FOUND).entity("Can't delete this SongLists. SongLists doesn't exists")
+	 .build();
 	 }
-	
+	 
+	 
 	 }
-	
+		 return Response.status(Response.Status.UNAUTHORIZED).entity("Not authorized to delete  other users playlist ").build();
 
-	// @DELETE
-	// @Path("/{id}")
-	// @Produces(MediaType.TEXT_PLAIN)
-	// public Response delete(@PathParam("id") Integer id) {
-	// SongLists SongLists = SongListsBook.getInstance().deleteSongLists(id);
-	// if (SongLists != null) {
-	// return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully
-	// deleted SongLists").build();
-	// } else {
-	// return Response.status(Response.Status.NOT_FOUND).entity("Can't delete this
-	// SongLists. SongLists doesn't exists")
-	// .build();
-	// }
-	// }
+		 }
 
 }

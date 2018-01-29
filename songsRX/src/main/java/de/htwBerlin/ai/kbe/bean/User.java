@@ -30,7 +30,7 @@ public class User {
 	private String lastName;
 	private String firstName;
 	
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, orphanRemoval=true)
     private List<SongLists> songlists ;
 
 	
@@ -77,7 +77,7 @@ public class User {
 	}
 
 	public String getUserId() {
-		return userId;
+		return this.userId;
 	}
 
 	public void setUserId(String userId) {

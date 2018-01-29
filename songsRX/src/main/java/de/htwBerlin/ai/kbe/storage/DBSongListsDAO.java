@@ -79,12 +79,15 @@ public class DBSongListsDAO implements ISongListsDAO {
             SongLists s = new SongLists();
             em.persist(SongLists);
             transaction.commit();
-            return 1;
+//            em.flush();
+            return SongLists.getId();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error adding SongLists: " + e.getMessage());
             transaction.rollback();
-            throw new PersistenceException("Could not persist entity: " + e.toString());
+            return 0;
+            //throw new PersistenceException("Could not persist entity: " + e.toString());
+            
         } finally {
             em.close();
         }
