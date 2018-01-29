@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,13 +26,13 @@ public class SongLists {
 	private Integer id;
 	private boolean isPublic;
 	
-   @ManyToMany(cascade = CascadeType.ALL)
+   @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
    @JoinTable(name = "SongList_songs", 
          joinColumns = { @JoinColumn(name = "Songlist_id") }, 
          inverseJoinColumns = { @JoinColumn(name = "Song_id") })
 	private List<Song> songs ;
 	
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
     
@@ -47,17 +48,13 @@ public class SongLists {
 	public SongLists() {
 	}
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 
 
 	public boolean isPublic() {
@@ -75,5 +72,11 @@ public class SongLists {
 	public void setSongs(List<Song> songs) {
 		this.songs = songs;
 	}
+
+	@Override
+	public String toString() {
+		return "SongLists [id=" + id + ", isPublic=" + isPublic + ", songs=" + songs + ", user=" + user + "]";
+	}
+	
 
 }

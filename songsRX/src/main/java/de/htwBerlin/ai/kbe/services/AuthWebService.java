@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.ws.rs.core.Response;
 import javax.inject.Inject;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,18 +19,23 @@ import de.htwBerlin.ai.kbe.bean.User;
 import de.htwBerlin.ai.kbe.book.UserBook;
 import de.htwBerlin.ai.kbe.security.AuthContainer;
 import de.htwBerlin.ai.kbe.security.IAuthContainer;
+import de.htwBerlin.ai.kbe.storage.DBUserDao;
+import de.htwBerlin.ai.kbe.storage.IUserDao;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 @Path("/auth")
 public class AuthWebService {
 	
-	private IAuthContainer authContainer;
+	private IAuthContainer authContainer ;
+	private IUserDao userDao ;
 	
 	@Inject
-	public AuthWebService(IAuthContainer authContainer) {
+	public AuthWebService(IAuthContainer authContainer,IUserDao userDao ) {
 		this.authContainer = authContainer;
+		this.userDao = userDao;
 	}
+	
 	
 	@Context 
 	HttpServletRequest request;
@@ -43,16 +50,16 @@ public class AuthWebService {
 		return UserBook.getInstance().getAllUsers();
 
 	}
-	
+
 	@GET
 	@Path("/")
 	@Produces({ MediaType.TEXT_PLAIN})
 	public Response getSong(@QueryParam("userId") String userId) {
-		
-		User user = UserBook.getInstance().getUser(userId);
+		User user = userDao.findUserById(userId);
 		
 		if(user != null ) {
         String token = request.getSession().getId();
+        System.out.println(authContainer);
         authContainer.setUserIdByToken(token, userId);
 		return Response
 				   .status(200)

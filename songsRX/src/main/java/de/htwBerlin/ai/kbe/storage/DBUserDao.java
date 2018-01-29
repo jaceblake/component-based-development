@@ -17,6 +17,7 @@ public class DBUserDao implements IUserDao {
     public DBUserDao(EntityManagerFactory emf) {
         this.emf = emf;
     }
+ 
     
     @Override
     public User findUserById(String userid) {

@@ -7,9 +7,11 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.bean.SongLists;
 import de.htwBerlin.ai.kbe.bean.User;
 
@@ -36,12 +38,33 @@ public class DBSongListsDAO implements ISongListsDAO {
     }
 
     @Override
-    public Collection<SongLists> findAllSongLists(String id) {
+    public Collection<SongLists> findAllSongLists(String id, boolean isPublic) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<SongLists> query = em.createQuery("SELECT c FROM SongLists c where owner = id ", SongLists.class);
+        	
+            TypedQuery<SongLists> query = em.createQuery("SELECT c FROM SongLists c where user_id = " + "'"+ id + "'", SongLists.class);
+           if(isPublic) {
+        	   query = em.createQuery("SELECT  c FROM SongLists c where user_id = " + "'"+ id + "' and isPublic=1 " , SongLists.class);
+        	   }
             return query.getResultList();
         } finally {
+            em.close();
+        }
+    }
+    @Override
+    public SongLists findSongListById(String id, Integer songListId, boolean isPublic) {
+        EntityManager em = emf.createEntityManager();
+        try {
+        	
+            TypedQuery<SongLists> query = em.createQuery("SELECT c FROM SongLists c where user_id = " + "'"+ id + "' and id=" + songListId, SongLists.class);
+           if(isPublic) {
+        	   query = em.createQuery("SELECT  c FROM SongLists c where user_id = " + "'"+ id + "' and isPublic=1 and id=" + songListId , SongLists.class);
+        	   }
+            return query.getSingleResult();
+        }catch(NoResultException e) {
+        	return null;
+        }
+        finally {
             em.close();
         }
     }
@@ -53,10 +76,10 @@ public class DBSongListsDAO implements ISongListsDAO {
         try {
             transaction.begin();
             // MUST set the SongLists in every address
-  
+            SongLists s = new SongLists();
             em.persist(SongLists);
             transaction.commit();
-            return SongLists.getId();
+            return 1;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error adding SongLists: " + e.getMessage());
@@ -75,7 +98,7 @@ public class DBSongListsDAO implements ISongListsDAO {
         try {
             SongLists = em.find(SongLists.class, id);
             if (SongLists != null) {
-                System.out.println("Deleting: " + SongLists.getId() + " with firstName: " );
+                System.out.println("Deleting: " + id );
                 transaction.begin();
                 em.remove(SongLists);
                 transaction.commit();

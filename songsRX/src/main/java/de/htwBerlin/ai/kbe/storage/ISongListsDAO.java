@@ -24,8 +24,16 @@ public interface ISongListsDAO {
 	 * 
 	 * @return
 	 */
-	public Collection<SongLists> findAllSongLists(String id);
+	public Collection<SongLists> findAllSongLists(String id, boolean isPublic);
 
+	
+	/**
+	 * Retrieves single SongLists
+	 * 
+	 * @return
+	 */
+	public SongLists findSongListById(String id, Integer songListId, boolean isPublic);
+	
 	/**
 	 * Save a new SongLists
 	 * 
