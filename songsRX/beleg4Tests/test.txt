@@ -1,0 +1,21 @@
+json get
+=======
+curl -X GET      -H "Authorization: FA269663E8904CB37DB7A473F7FD8CCD"      -H "Accept: application/json"      -v "http://localhost:8080/songsRX/rest/userId/eschuler/songLists"
+
+
+xml get
+=======
+
+curl -X GET      -H "Authorization: FA269663E8904CB37DB7A473F7FD8CCD"      -H "Accept: application/xml"      -v "http://localhost:8080/songsRX/rest/userId/eschuler/songLists"
+
+
+
+json post
+=======
+
+curl -X POST      -H "Authorization: FA269663E8904CB37DB7A473F7FD8CCD"      -H "Content-Type: application/json"      -H "Accept: text/plain"      -d "@songList.json"      -v "http://localhost:8080/songsRX/rest/userId/eschuler/songLists"
+
+
+
+xml post
+========

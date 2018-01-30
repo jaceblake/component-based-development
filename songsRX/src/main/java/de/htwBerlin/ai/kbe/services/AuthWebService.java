@@ -45,7 +45,7 @@ public class AuthWebService {
 	 */
 	@GET
 	@Path("/user")
-	@Produces({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML})
 	public Collection<User> getUsers() {
 		return UserBook.getInstance().getAllUsers();
 
