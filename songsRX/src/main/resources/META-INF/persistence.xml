@@ -12,9 +12,9 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" 
-                      value="jdbc:mysql://db.f4.htw-berlin.de/_s0542338__songsDB"/>
-            <property name="javax.persistence.jdbc.user" value="s0542338"/>
-            <property name="javax.persistence.jdbc.password" value="jahidmustafa"/>
+                      value="jdbc:mysql://db.f4.htw-berlin.de/_s0549391__songBdFinal"/>
+            <property name="javax.persistence.jdbc.user" value="s0549391"/>
+            <property name="javax.persistence.jdbc.password" value="jahidmaster"/>
 
 
             <!--Hibernate properties-->

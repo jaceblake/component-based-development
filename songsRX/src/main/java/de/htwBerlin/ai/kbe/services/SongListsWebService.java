@@ -109,10 +109,19 @@ public class SongListsWebService {
 
 	@POST
 	@Path("/{id}/songLists/")
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createSongLists(@HeaderParam("Authorization") String token, @PathParam("id") String id,
 			SongLists SongLists) throws URISyntaxException {
+//		 @SuppressWarnings("rawtypes")
+//
+//		GenericEntity entity = new
+//		GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
+//		 {};
+//		 GenericEntity entity = new
+//		GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
+//		{};
+		 
 		System.out.println(SongLists);
 
 		if (authContainer.getUserIdByToken(token).equals(id)) {

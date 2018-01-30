@@ -64,7 +64,7 @@ public class SongLists {
 	}
 	
 	
-	public User getUser(User user) {
+	public User getUser() {
 		return this.user;
 	}
 
