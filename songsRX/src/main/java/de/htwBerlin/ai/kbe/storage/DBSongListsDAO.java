@@ -11,9 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import de.htwBerlin.ai.kbe.bean.Song;
 import de.htwBerlin.ai.kbe.bean.SongLists;
-import de.htwBerlin.ai.kbe.bean.User;
 
 @Singleton
 public class DBSongListsDAO implements ISongListsDAO {
@@ -75,18 +73,15 @@ public class DBSongListsDAO implements ISongListsDAO {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            // MUST set the SongLists in every address
-            SongLists s = new SongLists();
             em.persist(SongLists);
             transaction.commit();
-//            em.flush();
             return SongLists.getId();
-        } catch (Exception e) {
+        } catch (org.hibernate.exception.ConstraintViolationException  e) {
             e.printStackTrace();
             System.out.println("Error adding SongLists: " + e.getMessage());
             transaction.rollback();
-            return 0;
-            //throw new PersistenceException("Could not persist entity: " + e.toString());
+            throw new PersistenceException("Could not persist entity: " + e.toString());
+             
             
         } finally {
             em.close();

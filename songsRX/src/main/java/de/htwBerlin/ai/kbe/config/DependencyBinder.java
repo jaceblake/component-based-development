@@ -20,7 +20,7 @@ import de.htwBerlin.ai.kbe.storage.IUserDao;
 public class DependencyBinder extends AbstractBinder {
     @Override
     protected void configure() {
-        bind (Persistence.createEntityManagerFactory("contactsDB-PU")).to(EntityManagerFactory.class);
+        bind (Persistence.createEntityManagerFactory("SongListDB-PU")).to(EntityManagerFactory.class);
         bind(DBSongsDAO.class).to(ISongsDAO.class).in(Singleton.class);
         bind(DBSongListsDAO.class).to(ISongListsDAO.class).in(Singleton.class);
         bind(AuthContainer.class).to(IAuthContainer.class).in(Singleton.class);

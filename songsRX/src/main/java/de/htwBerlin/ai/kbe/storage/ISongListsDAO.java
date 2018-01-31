@@ -28,7 +28,7 @@ public interface ISongListsDAO {
 
 	
 	/**
-	 * Retrieves single SongLists
+	 * Retrieves single SongLists by given id
 	 * 
 	 * @return
 	 */
@@ -46,7 +46,7 @@ public interface ISongListsDAO {
 	 * Deletes the SongLists for the provided id
 	 * 
 	 * @param id
-	 * @return 
+	 * @return true, if successfully delete it
 	 */
 	public boolean deleteSongLists(Integer id);
 }

@@ -10,27 +10,20 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
-
 import de.htwBerlin.ai.kbe.bean.SongLists;
 import de.htwBerlin.ai.kbe.security.IAuthContainer;
 import de.htwBerlin.ai.kbe.storage.ISongListsDAO;
-import de.htwBerlin.ai.kbe.storage.IUserDao;
 
 //URL fuer diesen Service ist: http://localhost:8080/songsRX/rest/userId 
 @Path("/userId")
 public class SongListsWebService {
 
 	private ISongListsDAO SongListsDao;
-	@Inject
-	private IUserDao UserDao;
 	@Inject
 	private IAuthContainer authContainer;
 
@@ -56,17 +49,6 @@ public class SongListsWebService {
 
 		}
 		return SongListsDao.findAllSongLists(id, true);
-		// @SuppressWarnings("rawtypes")
-
-		// GenericEntity entity = new
-		// GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-		// {};
-		// GenericEntity entity = new
-		// GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-		// {};
-
-		// return Response.ok(entity).build();
-
 	}
 
 	@GET
@@ -75,10 +57,7 @@ public class SongListsWebService {
 	public Response getSongListById(@HeaderParam("Authorization") String token, @PathParam("id") String id,
 			@PathParam("songList_id") Integer songListId) {
 
-		System.out.println("getAllSongLists: Returning all SongLists!");
-
-		// return all if same user
-		// System.ou t.println(SongListsDao.findAllSongLists(id,false));
+		System.out.println("getAllSongLists: Returning SongLists by given id !");
 
 		SongLists s;
 		if (authContainer.getUserIdByToken(token).equals(id)) {
@@ -93,18 +72,6 @@ public class SongListsWebService {
 		} else {
 			return Response.ok(s).build();
 		}
-
-		// @SuppressWarnings("rawtypes")
-
-		// GenericEntity entity = new
-		// GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-		// {};
-		// GenericEntity entity = new
-		// GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-		// {};
-
-		// return Response.ok(entity).build();
-
 	}
 
 	@POST
@@ -118,15 +85,13 @@ public class SongListsWebService {
 
 		if (authContainer.getUserIdByToken(token).equals(id)) {
 			if (SongLists != null && SongLists.getSongs() != null) {
+				try {
 				int res = SongListsDao.saveSongLists(SongLists);
-
-				if (res != 0)
-					return Response.created(new URI("/songsRX/rest/userId/" + id + "/songLists/" + res)).build();
-				// return Response.status(Response.Status.CREATED).entity("New
-				// SongLists Created").build();
+				return Response.created(new URI("/songsRX/rest/userId/" + id + "/songLists/" + res)).build();
+				}catch(Exception e){
+					return Response.status(Response.Status.BAD_REQUEST).entity("Song doenstn't exists ").build();
+				}
 			}
-			return Response.status(Response.Status.BAD_REQUEST).build();
-
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity("Not authorized to save for other user ").build();
 
@@ -142,8 +107,6 @@ public class SongListsWebService {
 		System.out.println(id);
 		if (authContainer.getUserIdByToken(token).equals(id)) {
 			
-			System.out.println("here");
-
 			if (SongListsDao.deleteSongLists(list_id)) {
 				return Response.status(Response.Status.NO_CONTENT).entity("Sucessfully deleted SongLists").build();
 			} else {

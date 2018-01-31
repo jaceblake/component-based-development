@@ -1,12 +1,7 @@
 package de.htwBerlin.ai.kbe.services;
 
-import java.util.Collection;
-import java.util.Map;
-
 import javax.ws.rs.core.Response;
 import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,14 +11,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import de.htwBerlin.ai.kbe.bean.User;
-import de.htwBerlin.ai.kbe.book.UserBook;
-import de.htwBerlin.ai.kbe.security.AuthContainer;
 import de.htwBerlin.ai.kbe.security.IAuthContainer;
-import de.htwBerlin.ai.kbe.storage.DBUserDao;
 import de.htwBerlin.ai.kbe.storage.IUserDao;
 
-import java.util.concurrent.ConcurrentHashMap;
-
+//http://localhost:8080/songsRX/rest/auth?userId=eschuler
 @Path("/auth")
 public class AuthWebService {
 	
@@ -40,16 +31,6 @@ public class AuthWebService {
 	@Context 
 	HttpServletRequest request;
 
-	/*
-	 * Only for test, 
-	 */
-	@GET
-	@Path("/user")
-	@Produces({MediaType.APPLICATION_XML})
-	public Collection<User> getUsers() {
-		return UserBook.getInstance().getAllUsers();
-
-	}
 
 	@GET
 	@Path("/")

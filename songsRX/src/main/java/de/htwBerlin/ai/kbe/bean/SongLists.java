@@ -36,8 +36,6 @@ public class SongLists {
     @JoinColumn(name = "user_id")
     private User user;
     
-    
-
 	public SongLists(boolean isPublic, User user,List<Song> songs) {
 		super();
 		this.isPublic = isPublic;
@@ -51,28 +49,19 @@ public class SongLists {
 		this.songs = songs;
 	}
 	
-	
 	public SongLists(){}
 
 	public int getId(){
 		return this.id;
 	}
 	
-
-
-	
 	public void setUser(User user) {
 		this.user = user;
 	}
 	
-	
-//	public User getUser(User user) {
-//		return this.user;
-//	}
-
 	public User getUser() {
-	return this.user;
-}
+	    return this.user;
+    }
 
 	public boolean isPublic() {
 		return isPublic;

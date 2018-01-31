@@ -1,18 +1,9 @@
 package de.htwBerlin.ai.kbe.bean;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,32 +21,6 @@ public class User {
 	private String lastName;
 	private String firstName;
 	
-//    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
-//    private List<SongLists> songlists ;
-//
-//	
-//    public List<SongLists> getSonglists() {
-//        if(songlists == null) {
-//        	songlists =  new ArrayList<SongLists>();
-//        }
-//        return songlists;
-//    }
-//
-//    public void setSonglists(List<SongLists> songlists) {
-//        this.songlists = songlists;
-//        // Works for JSON, but not for XML
-//        if(songlists != null) {
-//            this.songlists.forEach(a-> a.setUser(this));
-//        }
-//    }
-//    
-//    public void addSongList(SongLists songli) {
-//        if(songlists == null) {
-//        	songlists = new ArrayList<SongLists>();
-//        }
-//        songli.setUser(this);
-//        this.songlists.add(songli);
-//    }
 
 	public User(Integer id, String userId, String lastName, String firstName) {
 		super();

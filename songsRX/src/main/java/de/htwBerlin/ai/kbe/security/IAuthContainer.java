@@ -6,7 +6,7 @@ public interface IAuthContainer {
 	/**
 	 * 
 	 * @param authToken
-	 * @return true when authToken in tokenMap
+	 * @return true when authToken found in tokenMap
 	 */
 	public boolean authenticate(String authToken);
 	
@@ -21,7 +21,7 @@ public interface IAuthContainer {
 	 * put token in tokenMap
 	 * @param token
 	 * @param userId
-	 * @return
+	 * @return value,if successfully put in map
 	 */
 	public String setUserIdByToken(String token,String userId);
 

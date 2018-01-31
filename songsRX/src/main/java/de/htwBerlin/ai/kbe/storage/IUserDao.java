@@ -12,7 +12,7 @@ public interface IUserDao {
 	/**
 	 * find a user by id
 	 * @param userid
-	 * @return
+	 * @return User 
 	 */
 	public User findUserById(String userid);
 

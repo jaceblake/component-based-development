@@ -21,7 +21,7 @@ public class DbTester {
     public static void main(String[] args) {
         
         // Datei persistence.xml wird automatisch eingelesen, beim Start der Applikation
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("contactsDB-PU");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("SongListDB-PU");
 
         // EntityManager bietet Zugriff auf Datenbank
         EntityManager em = factory.createEntityManager();

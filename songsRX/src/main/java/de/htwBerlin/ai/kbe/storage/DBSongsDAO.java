@@ -52,7 +52,6 @@ public class DBSongsDAO implements ISongsDAO {
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            // MUST set the Song in every address
   
             em.persist(Song);
             transaction.commit();

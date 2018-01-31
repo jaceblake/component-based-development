@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <songlists>
-    <public>false</public>
+    <isPublic>false</isPublic>
 
-	<user>
+    <user>
 		<firstName>tst</firstName>
 		<id>5</id>
 		<lastName>testtest</lastName>
 		<userId>eschuler</userId>
-	</user>
+    </user>
 
     <songs>
         <album>Lukas 777 (Album Seven)</album>
