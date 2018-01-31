@@ -53,7 +53,7 @@ public class SongListsWebService {
 
 	@GET
 	@Path("/{id}/songLists/{songList_id}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML , MediaType.TEXT_PLAIN})
 	public Response getSongListById(@HeaderParam("Authorization") String token, @PathParam("id") String id,
 			@PathParam("songList_id") Integer songListId) {
 
