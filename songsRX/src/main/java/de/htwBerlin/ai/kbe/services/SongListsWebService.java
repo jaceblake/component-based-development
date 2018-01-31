@@ -83,7 +83,7 @@ public class SongListsWebService {
 		 
 		System.out.println(SongLists);
 
-		if (authContainer.getUserIdByToken(token).equals(id)) {
+		if (authContainer.getUserIdByToken(token).equals(id) && SongLists.getUser().getUserId().equals(authContainer.getUserIdByToken(token))) {
 			if (SongLists != null && SongLists.getSongs() != null) {
 				try {
 				int res = SongListsDao.saveSongLists(SongLists);
