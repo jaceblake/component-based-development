@@ -32,7 +32,7 @@ public class SongLists {
          inverseJoinColumns = { @JoinColumn(name = "Song_id") })
 	private List<Song> songs ;
 	
-    @ManyToOne(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
@@ -57,6 +57,8 @@ public class SongLists {
 	public int getId(){
 		return this.id;
 	}
+	
+
 
 	
 	public void setUser(User user) {
@@ -64,10 +66,13 @@ public class SongLists {
 	}
 	
 	
-	public User getUser() {
-		return this.user;
-	}
+//	public User getUser(User user) {
+//		return this.user;
+//	}
 
+	public User getUser() {
+	return this.user;
+}
 
 	public boolean isPublic() {
 		return isPublic;

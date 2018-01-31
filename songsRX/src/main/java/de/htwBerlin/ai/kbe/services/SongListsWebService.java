@@ -89,7 +89,7 @@ public class SongListsWebService {
 			s = SongListsDao.findSongListById(id, songListId, true);
 		}
 		if (s == null) {
-			return Response.status(Response.Status.NOT_FOUND).entity("No Song found with id " + songListId).build();
+			return Response.status(Response.Status.NOT_FOUND).entity("No SongList found with id " + songListId).build();
 		} else {
 			return Response.ok(s).build();
 		}
@@ -113,14 +113,6 @@ public class SongListsWebService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response createSongLists(@HeaderParam("Authorization") String token, @PathParam("id") String id,
 			SongLists SongLists) throws URISyntaxException {
-//		 @SuppressWarnings("rawtypes")
-//
-//		GenericEntity entity = new
-//		GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-//		 {};
-//		 GenericEntity entity = new
-//		GenericEntity<Collection<SongLists>>(SongListsBook.getInstance().getAllSongLists())
-//		{};
 		 
 		System.out.println(SongLists);
 

@@ -27,48 +27,41 @@ public class DbTester {
         EntityManager em = factory.createEntityManager();
         
         try {
-        	IUserDao dao = new DBUserDao(factory) ;
-            System.out.println(dao.findUserById("mmuster"));
+            em.getTransaction().begin();
+            // Create: neuen Contact anlegen
+            
+            User user1 = new User(2, "max", "müller", "mm");
+            
+            User user2 = new User(3, "mmuster3", "mustafa", "sabbir");
+            
+            Song song1 = new Song("halu1","me1","byan1",2001);
+            
+            Song song2 = new Song("halu4","me4","byan4",2004);
+            
+            List<Song> songs = new ArrayList<>();
+            songs.add(song1);
+            songs.add(song2);
+            SongLists listsong = new SongLists(true, user1,songs);
+            //listsong.setSongs(songs);
+//            List<SongLists> songList = new ArrayList<>();
+//            songList.add(listsong);
+//            user1.setSonglists(songList);
+
+            // Wir persistieren nur contact, 
+            // wegen cascade=CascadeType.ALL werden auch address1, address 2 persistiert
+            em.persist(listsong);
+            
+            // commit transaction
+            em.getTransaction().commit();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
+            // EntityManager nach Datenbankaktionen wieder freigeben
             em.close();
+            // Freigabe am Ende der Applikation
+            factory.close();
         }
-        
-//        try {
-//            em.getTransaction().begin();
-//            // Create: neuen Contact anlegen
-//            
-//            User user1 = new User(2, "mmuster", "hasan", "jahid");
-//            
-//            User user2 = new User(3, "mmuster3", "mustafa", "sabbir");
-//            
-//            Song song1 = new Song("halu1","me1","byan1",2001);
-//            
-//            Song song2 = new Song("halu4","me4","byan4",2004);
-//            
-//            List<Song> songs = new ArrayList<>();
-//            songs.add(song1);
-//            songs.add(song2);
-//            SongLists listsong = new SongLists(true, user1,songs);
-//            //listsong.setSongs(songs);
-////            List<SongLists> songList = new ArrayList<>();
-////            songList.add(listsong);
-////            user1.setSonglists(songList);
-//
-//            // Wir persistieren nur contact, 
-//            // wegen cascade=CascadeType.ALL werden auch address1, address 2 persistiert
-//            em.persist(listsong);
-//            
-//            // commit transaction
-//            em.getTransaction().commit();
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            // EntityManager nach Datenbankaktionen wieder freigeben
-//            em.close();
-//            // Freigabe am Ende der Applikation
-//            factory.close();
-//        }
     }
 
 
